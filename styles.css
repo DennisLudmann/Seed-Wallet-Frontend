@@ -1,3 +1,13 @@
+:root {
+    --primary-background: #E5E5E5;      /*light to dark*/
+    --secondary-background: #F7F7F7;
+    --tertiary-background: #1E1E1F;
+
+    --primary-font-color: #000000;
+    --secondary-font-color: #949398;
+
+}
+
 * {
     margin: 0;
     padding: 0;
