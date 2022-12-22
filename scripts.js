@@ -1,5 +1,6 @@
-let allWords = [];              // bip 39 
-let seedPhrase = [];            // 12 words
+let allWords = [];                          // BIP 39 - 2048words
+let seedPhrase = [];            
+let seedPhraseLenght = 12;
 let randomNumber;
 
 
@@ -9,8 +10,8 @@ async function init() {
 }
 
 
-function generateSeedPhrase() {
-    for (let i = 0; i < 12; i++) {
+function generateSeedPhrase() {             // picks 12 random words based on BIP 39
+    for (let i = 0; i < seedPhraseLenght; i++) {
         generateNumber();
         let word = allWords[randomNumber];
         seedPhrase.push(word);
@@ -25,6 +26,6 @@ async function loadWords() {
 }
 
 
-function generateNumber() {
+function generateNumber() {                                 // generate random number (0-2047)
     randomNumber = Math.floor(Math.random() * 2048);
 }
