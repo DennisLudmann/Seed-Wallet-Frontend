@@ -38,14 +38,20 @@ function renderPage(){
     document.getElementById('container').innerHTML += contentEntryBuild;
 }
 
+
 function generateNumber() {                                 // generate random number (0-2047)
     randomNumber = Math.floor(Math.random() * 2048);
 }
 
+
 function renderSeedphrase() {
     for (let i = 0; i < seedPhraseLenght; i++) {
-        let position = i +1;
-        document.getElementById('seedphrase').innerHTML += `<div id=${i} class="doors" href="#">${seedPhrase[i]} ${position}</div>`;
+        let position = i + 1;
+        document.getElementById('seedphrase').innerHTML += `
+        <div id=${position} class="seedphrase" href="#">
+        <p class="seedphrase__number">${position}.</p>
+        <p class="seedphrase__word">${seedPhrase[i]}</p>
+         </div>`;
     }
 }
 
