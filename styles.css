@@ -6,6 +6,8 @@
     --primary-font-color: #000000;
     --secondary-font-color: #949398;
 
+    --small-space: 0.8em;
+    --big-space: 3.5em;
 }
 
 * {
@@ -16,6 +18,33 @@
 body {
     min-height: 100vh;
     font-family: kanit;
+    font-weight: 400;
+    font-size: 14px;
+
+}
+
+.card {
+    margin: auto;
+    max-width: 400px;
+}
+
+.card__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: var(--big-space);
+}
+
+.headline {
+    margin-right: auto;
+}
+
+.return {
+    text-decoration: none;
+    margin-right: auto;
+    /* position: absolute;
+    top: var(--big-space);
+    left: var(--small-space); */
 }
 
 .seedphrase {

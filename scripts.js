@@ -1,6 +1,6 @@
 let allWords = [];                          // BIP 39 - 2048words
 let seedPhrase = [];
-let seedPhraseLenght = 12;
+const seedPhraseLenght = 12;
 let randomNumber;
 
 
