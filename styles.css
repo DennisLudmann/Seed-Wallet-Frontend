@@ -7,7 +7,11 @@
     --secondary-font-color: #949398;
 
     --small-space: 0.8em;
+    --medium-space: 2em;
     --big-space: 3.5em;
+
+    --medium-font: 1.4em;
+    --big-font: 1.5em;
 }
 
 * {
@@ -36,17 +40,46 @@ body {
 }
 
 .headline {
+    font-weight: 600;
+    font-size: var(--medium-font);
     margin-right: auto;
 }
 
 .return {
     text-decoration: none;
     margin-right: auto;
-    /* position: absolute;
-    top: var(--big-space);
-    left: var(--small-space); */
 }
 
-.seedphrase {
+.main__headline {
+    font-weight: 600;
+    font-size: var(--big-font);
+    margin-top: var(--medium-space);
+    margin-bottom: var(  --small-space);
+}
+
+.main__text {
+    line-height: 24px;
+    }
+
+.wrapper {
+    margin-top: var(--medium-space);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1em;
+}
+
+.seedword {
     display: flex;
+    justify-content: center;
+    padding: 8px 16px;
+    background: var(--secondary-background);
+    border-radius: 100px;
+}
+
+.seedphrase__word {
+    margin-left: 4px;
+}
+
+.seedphrase__number, .main__text {
+    color: var( --secondary-font-color);
 }

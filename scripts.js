@@ -48,9 +48,9 @@ function renderSeedphrase() {
     for (let i = 0; i < seedPhraseLenght; i++) {
         let position = i + 1;
         document.getElementById('seedphrase').innerHTML += `
-        <div id=${position} class="seedphrase" href="#">
-        <p class="seedphrase__number">${position}. </p>
-        <p class="seedphrase__word">${seedPhrase[i]}</p>
+        <div id=${position} class="seedword" href="#">
+        <p class="seedphrase__number">${position}.</p>
+        <p class="seedphrase__word"> ${seedPhrase[i]}</p>
          </div>
          `;
     }
@@ -64,5 +64,5 @@ function renderLanding() {
         <h1 class="main__headline">Write Down Your Seed Phrase</h1>
         <p p class="main__text" > This is your seed phrase.Write it down on a paper and keep it in a safe place.You'll be asked to
         re - enter this phrase(in order) on the next step.</p>
-        <div id="seedphrase"></div>`
+        <div class="wrapper" id="seedphrase"></div>`
 }
