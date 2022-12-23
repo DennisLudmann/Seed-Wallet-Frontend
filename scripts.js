@@ -49,9 +49,10 @@ function renderSeedphrase() {
         let position = i + 1;
         document.getElementById('seedphrase').innerHTML += `
         <div id=${position} class="seedphrase" href="#">
-        <p class="seedphrase__number">${position}.</p>
+        <p class="seedphrase__number">${position}. </p>
         <p class="seedphrase__word">${seedPhrase[i]}</p>
-         </div>`;
+         </div>
+         `;
     }
 }
 
