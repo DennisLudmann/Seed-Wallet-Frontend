@@ -28,10 +28,22 @@ body {
 }
 
 .card {
-    background-color: var( --tertiary-font-color);
+    position: relative;
     margin: auto;
     max-width: 375px;
     padding: var( --small-space);
+}
+
+.card::before {
+    z-index: -1;
+    position: absolute;
+    top: -100px;
+    content: "";
+    height: 139px;
+    width: calc(100% - 2 * var(--small-space));
+    background: linear-gradient(96.52deg, #4EA5F0 5.13%, #5B9DFA 28.5%, #7592FF 49.76%, #9683FF 72.75%, #B870F7 94.87%);
+    filter: blur(60px);
+    
 }
 
 .card__header {
@@ -107,6 +119,7 @@ body {
     font-size: 16px;
     width: 279px;
     height: 48px;
+    cursor: pointer;
 }
 
 .blur {
@@ -122,8 +135,8 @@ body {
 .bg-color {
     position: absolute;
     width: 375px;
-    height: 139px;
     left: 0px;
     top: -64px;
+    height: 139px;
     background: linear-gradient(96.52deg, #4EA5F0 5.13%, #5B9DFA 28.5%, #7592FF 49.76%, #9683FF 72.75%, #B870F7 94.87%);
 }
