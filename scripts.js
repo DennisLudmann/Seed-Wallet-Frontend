@@ -17,7 +17,7 @@ function generateSeedPhrase() {             // picks 12 random words based on BI
         generateNumber();
         let word = allWords[randomNumber];
         if (seedPhrase.includes(word)) {    // dont allow the seedphrase to contain the same word multiple times
-            generateSeedPhrase();
+            i--;
         } else {
             seedPhrase.push(word);
         }
@@ -25,6 +25,15 @@ function generateSeedPhrase() {             // picks 12 random words based on BI
     console.log(seedPhrase);
 }
 
+// function checkSeedphrase(){
+
+// }
+// seedPhrase.findIndex(checkWord)
+
+// document.getElementById("demo").innerHTML = ages.findIndex(checkAge);
+
+// function checkAge(age) {
+//   return age == 20;
 
 async function loadWords() {
     let response = await fetch('./bip39.json');
@@ -62,7 +71,7 @@ function renderSeedphrase() {
 function renderLanding() {
         return`
         <h1 class="main__headline">Write Down Your Seed Phrase</h1>
-        <p p class="main__text" > This is your seed phrase.Write it down on a paper and keep it in a safe place.You'll be asked to
+        <p class="main__text" > This is your seed phrase.Write it down on a paper and keep it in a safe place.You'll be asked to
         re - enter this phrase(in order) on the next step.</p>
         <div class="wrapper" id="seedphrase"></div>`
 }

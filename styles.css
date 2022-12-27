@@ -1,10 +1,11 @@
 :root {
-    --primary-background: #E5E5E5;      /*light to dark*/
+    --primary-background: #E5E5E5;
     --secondary-background: #F7F7F7;
     --tertiary-background: #1E1E1F;
 
     --primary-font-color: #000000;
     --secondary-font-color: #949398;
+    --tertiary-font-color: #FFFFFF;
 
     --small-space: 0.8em;
     --medium-space: 2em;
@@ -20,11 +21,10 @@
 }
 
 body {
-    min-height: 100vh;
     font-family: kanit;
     font-weight: 400;
     font-size: 14px;
-
+    line-height: 24px;
 }
 
 .card {
@@ -48,18 +48,18 @@ body {
 .return {
     text-decoration: none;
     margin-right: auto;
+    font-weight: 600;
 }
 
 .main__headline {
     font-weight: 600;
     font-size: var(--big-font);
     margin-top: var(--medium-space);
-    margin-bottom: var(  --small-space);
+    margin-bottom: var(--small-space);
+    line-height: 28px;
 }
 
-.main__text {
-    line-height: 24px;
-    }
+.main__text {}
 
 .wrapper {
     margin-top: var(--medium-space);
@@ -80,6 +80,25 @@ body {
     margin-left: 4px;
 }
 
-.seedphrase__number, .main__text {
-    color: var( --secondary-font-color);
+.seedphrase__number,
+.main__text {
+    color: var(--secondary-font-color);
+}
+
+.cta {
+    color: var(--tertiary-font-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--tertiary-background);
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 16px;
+    position: absolute;
+    width: 279px;
+    height: 48px;
+    left: calc(50% - 279px/2);
+    bottom: 50px;
 }
