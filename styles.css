@@ -103,9 +103,9 @@ body {
 }
 
 .card__cta {
+    padding-bottom: var(--big-space);
     display: flex;
     justify-content: center;
-    align-items: end;
 }
 
 .cta {
