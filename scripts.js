@@ -25,15 +25,12 @@ function generateSeedPhrase() {             // picks 12 random words based on BI
     console.log(seedPhrase);
 }
 
-// function checkSeedphrase(){
 
-// }
-// seedPhrase.findIndex(checkWord)
+function checkSeedphrase(input) {
+        let word = seedPhrase.findIndex((seedphrase__word) => seedphrase__word === input);
+    	console.log(word);
+}
 
-// document.getElementById("demo").innerHTML = ages.findIndex(checkAge);
-
-// function checkAge(age) {
-//   return age == 20;
 
 async function loadWords() {
     let response = await fetch('./bip39.json');
