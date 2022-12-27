@@ -30,8 +30,12 @@ body {
 .card {
     position: relative;
     margin: auto;
+    height: 681px;
     max-width: 375px;
     padding: var( --small-space);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card::before {
@@ -68,7 +72,6 @@ body {
 .main__headline {
     font-weight: 600;
     font-size: var(--big-font);
-    margin-top: var(--medium-space);
     margin-bottom: var(--small-space);
     line-height: 28px;
 }
@@ -85,7 +88,7 @@ body {
 .seedword {
     display: flex;
     justify-content: center;
-    padding: 8px 16px;
+    padding: 7px 16px;
     background: var(--secondary-background);
     border-radius: 100px;
 }
@@ -100,7 +103,6 @@ body {
 }
 
 .card__cta {
-    height: 13em;
     display: flex;
     justify-content: center;
     align-items: end;
@@ -120,23 +122,4 @@ body {
     width: 279px;
     height: 48px;
     cursor: pointer;
-}
-
-.blur {
-    position: absolute;
-    width: 375px;
-    height: 296px;
-    left: 0px;
-    top: 0px;
-    background: rgba(255, 255, 255, 0.16);
-    backdrop-filter: blur(60px);
-}
-
-.bg-color {
-    position: absolute;
-    width: 375px;
-    left: 0px;
-    top: -64px;
-    height: 139px;
-    background: linear-gradient(96.52deg, #4EA5F0 5.13%, #5B9DFA 28.5%, #7592FF 49.76%, #9683FF 72.75%, #B870F7 94.87%);
 }
