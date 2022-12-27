@@ -7,9 +7,9 @@
     --secondary-font-color: #949398;
     --tertiary-font-color: #FFFFFF;
 
-    --small-space: 0.8em;
+    --small-space: 1.15em;
     --medium-space: 2em;
-    --big-space: 3.5em;
+    --big-space: 3em;
 
     --medium-font: 1.4em;
     --big-font: 1.5em;
@@ -28,15 +28,17 @@ body {
 }
 
 .card {
+    background-color: var( --tertiary-font-color);
     margin: auto;
-    max-width: 400px;
+    max-width: 375px;
+    padding: var( --small-space);
 }
 
 .card__header {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: var(--big-space);
+    padding-top: var(--big-space);
 }
 
 .headline {
@@ -85,6 +87,13 @@ body {
     color: var(--secondary-font-color);
 }
 
+.card__cta {
+    height: 13em;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
 .cta {
     color: var(--tertiary-font-color);
     display: flex;
@@ -96,9 +105,25 @@ body {
     border-radius: 100px;
     font-weight: 600;
     font-size: 16px;
-    position: absolute;
     width: 279px;
     height: 48px;
-    left: calc(50% - 279px/2);
-    bottom: 50px;
+}
+
+.blur {
+    position: absolute;
+    width: 375px;
+    height: 296px;
+    left: 0px;
+    top: 0px;
+    background: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(60px);
+}
+
+.bg-color {
+    position: absolute;
+    width: 375px;
+    height: 139px;
+    left: 0px;
+    top: -64px;
+    background: linear-gradient(96.52deg, #4EA5F0 5.13%, #5B9DFA 28.5%, #7592FF 49.76%, #9683FF 72.75%, #B870F7 94.87%);
 }
