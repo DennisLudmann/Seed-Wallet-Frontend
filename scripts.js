@@ -1,6 +1,7 @@
 let allWords = [];                          // BIP 39 - 2048words
 let seedPhrase = [];
 const seedPhraseLenght = 12;
+const checkNumber = 6;
 let randomNumber;
 
 
@@ -59,19 +60,32 @@ function renderSeedphrase() {
 }
 
 function nextSlide() {
-    let content = document.getElementById('container').innerHTML = "";
+    document.getElementById('nav__header').innerHTML = "Confirm Seed Phrase";
+    document.getElementById('seedPhrase').innerHTML = "";
+    for (let i = 0; i < checkNumber; i++) {
+        generateNumber(12);
+        let word = seedPhrase[randomNumber];
+        document.getElementById('seedPhrase').innerHTML += `
+        <div class="seedword" href="#">
+        <p class="seedphrase__word"> ${word}</p>
+        </div>`
+        ;
+    }
+  
 }
 
 
 // Here are some builing blocks to generate HTML
 
+
 function landingHTML() {
     return `
-        <h1 class="main__headline">Write Down Your Seed Phrase</h1>
+        <h1 id="header" class="main__headline">Write Down Your Seed Phrase</h1>
         <p class="main__text" > This is your seed phrase.Write it down on a paper and keep it in a safe place.You'll be asked to
         re - enter this phrase(in order) on the next step.</p>
         <div class="wrapper" id="seedPhrase"></div>`
 }
+
 
 function seedphraseHTML(position, i) {
     return `
