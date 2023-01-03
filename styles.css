@@ -32,10 +32,12 @@ body {
     margin: auto;
     height: 681px;
     max-width: 375px;
-    padding: var( --small-space);
+    padding: var(--small-space);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    box-shadow: 2px 2px 24px rgb(69 79 89 / 8%);
+    border-radius: 12px;
 }
 
 .card::before {
@@ -47,7 +49,6 @@ body {
     width: calc(100% - 2 * var(--small-space));
     background: linear-gradient(96.52deg, #4EA5F0 5.13%, #5B9DFA 28.5%, #7592FF 49.76%, #9683FF 72.75%, #B870F7 94.87%);
     filter: blur(60px);
-    
 }
 
 .card__header {
@@ -75,8 +76,6 @@ body {
     margin-bottom: var(--small-space);
     line-height: 28px;
 }
-
-.main__text {}
 
 .wrapper {
     margin-top: var(--medium-space);
@@ -122,4 +121,23 @@ body {
     width: 279px;
     height: 48px;
     cursor: pointer;
+}
+
+.question__wrapper {
+    padding: 16px 16px 24px 16px;
+    margin-top: var(--medium-space);
+    background: #FFFFFF;
+    box-shadow: 2px 2px 24px rgba(69, 79, 89, 0.08);
+    border-radius: 12px;
+}
+
+.question__container {
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+}
+
+.question__info {
+    margin-bottom: var(--small-space);
 }

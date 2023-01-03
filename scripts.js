@@ -59,9 +59,24 @@ function renderSeedphrase() {
     }
 }
 
+
 function nextSlide() {
     document.getElementById('nav__header').innerHTML = "Confirm Seed Phrase";
+    document.getElementById('text').innerHTML = `
+    <div class="question__wrapper" href="#">
+    <p class="question__info">Select each word in the order it was presented to you</p>
+    <div class="question__container" href="#">
+    <div class="seedword" href="#">
+        <p class="seedphrase__word"> 1.</p>
+        </div>
+        <div class="seedword" href="#">
+        <p class="seedphrase__word"> 2.</p>
+        </div>
+        </div>
+    `
+    ;
     document.getElementById('seedPhrase').innerHTML = "";
+    document.getElementById('header').innerHTML = "";
     for (let i = 0; i < checkNumber; i++) {
         generateNumber(12);
         let word = seedPhrase[randomNumber];
@@ -71,7 +86,6 @@ function nextSlide() {
         </div>`
         ;
     }
-  
 }
 
 
@@ -81,8 +95,8 @@ function nextSlide() {
 function landingHTML() {
     return `
         <h1 id="header" class="main__headline">Write Down Your Seed Phrase</h1>
-        <p class="main__text" > This is your seed phrase.Write it down on a paper and keep it in a safe place.You'll be asked to
-        re - enter this phrase(in order) on the next step.</p>
+        <div id="text" class="main__text" > This is your seed phrase.Write it down on a paper and keep it in a safe place.You'll be asked to
+        re - enter this phrase(in order) on the next step.</div>
         <div class="wrapper" id="seedPhrase"></div>`
 }
 
