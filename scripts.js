@@ -42,7 +42,7 @@ async function loadWords() {
 function renderPage() {
     let contentEntryBuild = '';
     contentEntryBuild += landingHTML(contentEntryBuild)
-    document.getElementById('container').innerHTML += contentEntryBuild;
+    document.getElementById('card').innerHTML += contentEntryBuild;
 }
 
 
@@ -64,17 +64,16 @@ function nextSlide() {
     document.getElementById('nav__header').innerHTML = "Confirm Seed Phrase";
     document.getElementById('text').innerHTML = `
     <div class="question__wrapper" href="#">
-    <p class="question__info">Select each word in the order it was presented to you</p>
+        <p class="question__info">Select each word in the order it was presented to you</p>
     <div class="question__container" href="#">
-    <div class="seedword" href="#">
-        <p class="seedphrase__word"> 1.</p>
+        <div class="seedword" href="#">
+            <p class="seedphrase__word"> 1.</p>
         </div>
         <div class="seedword" href="#">
-        <p class="seedphrase__word"> 2.</p>
+            <p class="seedphrase__word"> 2.</p>
         </div>
-        </div>
-    `
-    ;
+    </div>`
+        ;
     document.getElementById('seedPhrase').innerHTML = "";
     document.getElementById('header').innerHTML = "";
     for (let i = 0; i < checkNumber; i++) {
@@ -92,12 +91,24 @@ function nextSlide() {
 // Here are some builing blocks to generate HTML
 
 
+
+
 function landingHTML() {
     return `
-        <h1 id="header" class="main__headline">Write Down Your Seed Phrase</h1>
-        <div id="text" class="main__text" > This is your seed phrase.Write it down on a paper and keep it in a safe place.You'll be asked to
+    <div class="card__header">
+    <a class="return" href=""> < </a>
+    <h2 id="nav__header" class="headline">Backup Seed Phrase</h2>
+    </div>
+    <div id="container" class="card__content">
+    <h1 id="header" class="main__headline">Write Down Your Seed Phrase</h1>
+    <div id="text" class="main__text" > This is your seed phrase.Write it down on a paper and keep it in a safe place.You'll be asked to
         re - enter this phrase(in order) on the next step.</div>
-        <div class="wrapper" id="seedPhrase"></div>`
+    <div class="wrapper" id="seedPhrase"></div>
+    </div>
+    <div class="card__cta">
+        <button onclick="nextSlide()" class="cta">Continue</button>
+    </div>
+        `
 }
 
 
