@@ -1,5 +1,6 @@
 let allWords = [];                          // BIP 39 - 2048words
 let seedPhrase = [];
+let checkedWords = [];
 const seedPhraseLenght = 12;
 const checkNumber = 6;
 let randomNumber;
@@ -13,11 +14,11 @@ async function init() {
 }
 
 
-function generateSeedPhrase() {             // picks 12 random words based on BIP 39
+function generateSeedPhrase() {                           // picks 12 random words based on BIP 39
     for (let i = 0; i < seedPhraseLenght; i++) {
-        generateNumber(2048);
+        generateNumber(2048);                             // parse a range and get a random number from 0-x fx 2048 returned
         let word = allWords[randomNumber];
-        if (seedPhrase.includes(word)) {    // dont allow the seedPhrase to contain the same word multiple times
+        if (seedPhrase.includes(word)) {                  // dont allow the seedPhrase to contain the same word multiple times
             i--;
         } else {
             seedPhrase.push(word);
@@ -62,35 +63,46 @@ function renderSeedphrase() {
 
 function nextSlide() {
     document.getElementById('nav__header').innerHTML = "Confirm Seed Phrase";
+    generateNumber(12);
+    let firstNumber = randomNumber + 1;
+    generateNumber(12);
+    if (firstNumber == randomNumber) {
+        generateNumber(12)
+    }
+    let secondNumber = randomNumber + 1;
     document.getElementById('text').innerHTML = `
     <div class="question__wrapper" href="#">
         <p class="question__info">Select each word in the order it was presented to you</p>
     <div class="question__container" href="#">
         <div class="seedword" href="#">
-            <p class="seedphrase__word"> 1.</p>
+            <p class="seedphrase__word"> ${firstNumber}.</p>
         </div>
         <div class="seedword" href="#">
-            <p class="seedphrase__word"> 2.</p>
+            <p class="seedphrase__word"> ${secondNumber}.</p>
         </div>
     </div>`
         ;
     document.getElementById('seedPhrase').innerHTML = "";
     document.getElementById('header').innerHTML = "";
+    checkedWords = [];
     for (let i = 0; i < checkNumber; i++) {
         generateNumber(12);
         let word = seedPhrase[randomNumber];
-        document.getElementById('seedPhrase').innerHTML += `
+        if (checkedWords.includes(word)) {                
+            i--;
+        } else {
+            checkedWords.push(word);
+            document.getElementById('seedPhrase').innerHTML += `
         <div class="seedword" href="#">
         <p class="seedphrase__word"> ${word}</p>
         </div>`
         ;
+        }
     }
 }
 
 
 // Here are some builing blocks to generate HTML
-
-
 
 
 function landingHTML() {
@@ -107,8 +119,7 @@ function landingHTML() {
     </div>
     <div class="card__cta">
         <button onclick="nextSlide()" class="cta">Continue</button>
-    </div>
-        `
+    </div>`
 }
 
 
