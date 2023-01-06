@@ -4,6 +4,7 @@ let questionWords = [];                     // monitoring previous asked questio
 const seedPhraseLenght = 12;
 const checkNumber = 6;
 let randomNumber;
+let turnCounter = 0;
 
 
 async function init() {
@@ -61,32 +62,45 @@ function renderSeedphrase() {
 }
 
 
-function nextSlide() {
-    generateNumber(12);
-    let firstNumber = randomNumber;
-    generateNumber(12);
-    let secondNumber = randomNumber;
-    debugger;
-    if (firstNumber === secondNumber || questionWords.includes(firstNumber) || questionWords.includes(secondNumber)){
-        nextSlide();                                               // to prevent to ask for the same word twice
-        return;
+function nextSlide(number) {
+    turnCounter = turnCounter + number;
+    if (turnCounter > 4) {
+        console.log('I made it')
     }
-    questionWords.push(firstNumber);                                      // fill array with index of questions to prevent the same question to be asked in the future
-    questionWords.push(secondNumber);
-    document.getElementById('text').innerHTML = questionHTML(firstNumber + 1, secondNumber + 1);
-    document.getElementById('seedPhrase').innerHTML = "";
-    document.getElementById('header').innerHTML = "";
-    document.getElementById('nav__header').innerHTML = "Confirm Seed Phrase";
+    const [firstNumber, secondNumber] = getNewNumbers();
+    answerbuilder(firstNumber, secondNumber);
     answerOptions();
 }
 
 
-function answerOptions(){
-   let checkedWords = [];
+function answerbuilder(firstNumber, secondNumber){
+    document.getElementById('text').innerHTML = questionHTML(firstNumber + 1, secondNumber + 1);
+    document.getElementById('seedPhrase').innerHTML = "";
+    document.getElementById('header').innerHTML = "";
+    document.getElementById('nav__header').innerHTML = "Confirm Seed Phrase";
+}
+
+
+function getNewNumbers() {
+    generateNumber(12);
+    let firstNumber = randomNumber;
+    generateNumber(12);
+    let secondNumber = randomNumber;
+    if (firstNumber === secondNumber || questionWords.includes(firstNumber) || questionWords.includes(secondNumber)) {
+        getNewNumbers();                                               // to prevent to ask for the same word twice
+    }
+    questionWords.push(firstNumber);                                      // fill array with index of questions to prevent the same question to be asked in the future
+    questionWords.push(secondNumber);
+    return [firstNumber, secondNumber];
+}
+
+
+function answerOptions() {
+    let checkedWords = [];
     for (let i = 0; i < checkNumber; i++) {
         generateNumber(12);
         let word = seedPhrase[randomNumber];
-        if (checkedWords.includes(word)) {                
+        if (checkedWords.includes(word)) {
             i--;
         } else {
             checkedWords.push(word);
@@ -94,7 +108,7 @@ function answerOptions(){
             <div class="seedword" href="#">
             <p class="seedphrase__word"> ${word}</p>
             </div>`
-        ;
+                ;
         }
     }
 }
@@ -116,7 +130,7 @@ function landingHTML() {
     <div class="wrapper" id="seedPhrase"></div>
     </div>
     <div class="card__cta">
-        <button onclick="nextSlide()" class="cta">Continue</button>
+        <button onclick="nextSlide(1)" class="cta">Continue</button>
     </div>`
 }
 
