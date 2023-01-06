@@ -1,6 +1,6 @@
 let allWords = [];                          // BIP 39 - 2048words
 let seedPhrase = [];
-let checkedWords = [];
+let questionWords = [];                     // monitoring previous asked questions
 const seedPhraseLenght = 12;
 const checkNumber = 6;
 let randomNumber;
@@ -62,29 +62,24 @@ function renderSeedphrase() {
 
 
 function nextSlide() {
-    document.getElementById('nav__header').innerHTML = "Confirm Seed Phrase";
     generateNumber(12);
     let firstNumber = randomNumber + 1;
     generateNumber(12);
-    if (firstNumber == randomNumber) {
-        generateNumber(12)
+    if (firstNumber === randomNumber + 1) {
+        nextSlide();                                                 // to prevent to ask for the same word twice
     }
     let secondNumber = randomNumber + 1;
-    document.getElementById('text').innerHTML = `
-    <div class="question__wrapper" href="#">
-        <p class="question__info">Select each word in the order it was presented to you</p>
-    <div class="question__container" href="#">
-        <div class="seedword" href="#">
-            <p class="seedphrase__word"> ${firstNumber}.</p>
-        </div>
-        <div class="seedword" href="#">
-            <p class="seedphrase__word"> ${secondNumber}.</p>
-        </div>
-    </div>`
-        ;
+    questionWords.push(firstNumber - 1);                                      // fill array with asked questions to prevent the same question to be asked in the future
+    questionWords.push(secondNumber - 1);
+    document.getElementById('text').innerHTML = questionHTML(firstNumber, secondNumber);
     document.getElementById('seedPhrase').innerHTML = "";
     document.getElementById('header').innerHTML = "";
-    checkedWords = [];
+    document.getElementById('nav__header').innerHTML = "Confirm Seed Phrase";
+    answerOptions();
+}
+
+function answerOptions(){
+   let checkedWords = [];
     for (let i = 0; i < checkNumber; i++) {
         generateNumber(12);
         let word = seedPhrase[randomNumber];
@@ -93,9 +88,9 @@ function nextSlide() {
         } else {
             checkedWords.push(word);
             document.getElementById('seedPhrase').innerHTML += `
-        <div class="seedword" href="#">
-        <p class="seedphrase__word"> ${word}</p>
-        </div>`
+            <div class="seedword" href="#">
+            <p class="seedphrase__word"> ${word}</p>
+            </div>`
         ;
         }
     }
@@ -129,4 +124,18 @@ function seedphraseHTML(position, i) {
         <p class="seedphrase__number">${position}.</p>
         <p class="seedphrase__word"> ${seedPhrase[i]}</p>
         </div>`
+}
+
+function questionHTML(firstNumber, secondNumber) {
+    return `
+    <div class="question__wrapper" href="#">
+        <p class="question__info">Select each word in the order it was presented to you</p>
+    <div class="question__container" href="#">
+        <div class="seedword" href="#">
+            <p class="seedphrase__word"> ${firstNumber}.</p>
+        </div>
+        <div class="seedword" href="#">
+            <p class="seedphrase__word"> ${secondNumber}.</p>
+        </div>
+    </div>`
 }
