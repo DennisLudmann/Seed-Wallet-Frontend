@@ -62,22 +62,18 @@ function renderSeedphrase() {
 }
 
 
-function nextSlide(number) {
+function nextSlide(number) {                        
     turnCounter = turnCounter + number;
     if (turnCounter > 4) {
+        finishedBuilder();
         console.log('I made it')
+        return
     }
+        else {
     const [firstNumber, secondNumber] = getNewNumbers();
-    answerbuilder(firstNumber, secondNumber);
+    answerBuilder(firstNumber, secondNumber);
     answerOptions();
-}
-
-
-function answerbuilder(firstNumber, secondNumber){
-    document.getElementById('text').innerHTML = questionHTML(firstNumber + 1, secondNumber + 1);
-    document.getElementById('seedPhrase').innerHTML = "";
-    document.getElementById('header').innerHTML = "";
-    document.getElementById('nav__header').innerHTML = "Confirm Seed Phrase";
+    }
 }
 
 
@@ -113,6 +109,32 @@ function answerOptions() {
     }
 }
 
+function addSucessclass(){
+        let element = document.getElementById("container");
+        element.classList.add("sucess--wrapper");
+     
+}
+
+function answerBuilder(firstNumber, secondNumber){
+    document.getElementById('text').innerHTML = questionHTML(firstNumber + 1, secondNumber + 1);
+    document.getElementById('seedPhrase').innerHTML = "";
+    document.getElementById('header').innerHTML = "";
+    document.getElementById('nav__header').innerHTML = "Confirm Seed Phrase";
+}
+
+
+function finishedBuilder() {
+    addSucessclass();
+    document.getElementById('nav__header').innerHTML = "Congratulations";
+    document.getElementById('container').innerHTML = `
+    <img class="sucess__image" src="success.jpg" alt="handshake, one human one digital">
+    <p class="main__text">
+    You\'ve successfully protected your wallet. Remember to keep your seed phrase safe, it\'s your
+    responsibility&#33; KNAWALLET cannot recover your wallet should you lose it.</p>`
+    ;
+    document.getElementById('card__cta').innerHTML = "";
+}
+
 
 // Here are some builing blocks to generate HTML
 
@@ -129,7 +151,7 @@ function landingHTML() {
         re - enter this phrase(in order) on the next step.</div>
     <div class="wrapper" id="seedPhrase"></div>
     </div>
-    <div class="card__cta">
+    <div id ="card__cta" class="card__cta">
         <button onclick="nextSlide(1)" class="cta">Continue</button>
     </div>`
 }

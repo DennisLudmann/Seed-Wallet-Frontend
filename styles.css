@@ -141,3 +141,14 @@ body {
 .question__info {
     margin-bottom: var(--small-space);
 }
+
+.sucess--wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sucess__image {
+    width: 70%;
+    margin-bottom: var(--small-space);
+}
