@@ -42,7 +42,7 @@ async function loadWords() {
 
 function renderPage() {
     let contentEntryBuild = '';
-    contentEntryBuild += landingHTML(contentEntryBuild)
+    contentEntryBuild += landingHTML(contentEntryBuild);
     document.getElementById('card').innerHTML += contentEntryBuild;
 }
 
@@ -63,20 +63,23 @@ function renderSeedphrase() {
 
 function nextSlide() {
     generateNumber(12);
-    let firstNumber = randomNumber + 1;
+    let firstNumber = randomNumber;
     generateNumber(12);
-    if (firstNumber === randomNumber + 1) {
-        nextSlide();                                                 // to prevent to ask for the same word twice
+    let secondNumber = randomNumber;
+    debugger;
+    if (firstNumber === secondNumber || questionWords.includes(firstNumber) || questionWords.includes(secondNumber)){
+        nextSlide();                                               // to prevent to ask for the same word twice
+        return;
     }
-    let secondNumber = randomNumber + 1;
-    questionWords.push(firstNumber - 1);                                      // fill array with asked questions to prevent the same question to be asked in the future
-    questionWords.push(secondNumber - 1);
-    document.getElementById('text').innerHTML = questionHTML(firstNumber, secondNumber);
+    questionWords.push(firstNumber);                                      // fill array with index of questions to prevent the same question to be asked in the future
+    questionWords.push(secondNumber);
+    document.getElementById('text').innerHTML = questionHTML(firstNumber + 1, secondNumber + 1);
     document.getElementById('seedPhrase').innerHTML = "";
     document.getElementById('header').innerHTML = "";
     document.getElementById('nav__header').innerHTML = "Confirm Seed Phrase";
     answerOptions();
 }
+
 
 function answerOptions(){
    let checkedWords = [];
