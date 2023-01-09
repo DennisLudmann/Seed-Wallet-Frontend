@@ -91,17 +91,17 @@ function answerOptions() {
     let checkedWords = [];
     for (let i = 0; i < checkNumber; i++) {
         generateNumber(12);
-        let word = seedPhrase[randomNumber];
-        if (checkedWords.includes(word)) {
-            i--;
-        }
-        else {
+        if (shuffleArray.includes(randomNumber)) {
+            let word = seedPhrase[randomNumber];
             checkedWords.push(word);
             document.getElementById('seedPhrase').innerHTML += `
             <div class="seedword" href="#">
             <p class="seedphrase__word"> ${word}</p>
             </div>`
                 ;
+        }
+        else {
+            i--;
         }
     }
 }
