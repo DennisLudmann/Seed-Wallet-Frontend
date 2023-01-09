@@ -109,6 +109,16 @@ function answerOptions() {
     }
 }
 
+
+function toggleButton(){
+    if (document.getElementById('button').disabled) {
+        document.getElementById('button').disabled = false;
+    } else {
+    document.getElementById('button').disabled = true;
+    }
+}
+
+
 function addSucessclass(){
         let element = document.getElementById("container");
         element.classList.add("sucess--wrapper");
@@ -151,8 +161,8 @@ function landingHTML() {
         re - enter this phrase(in order) on the next step.</div>
     <div class="wrapper" id="seedPhrase"></div>
     </div>
-    <div id ="card__cta" class="card__cta">
-        <button onclick="nextSlide(1)" class="cta">Continue</button>
+    <div id="card__cta" class="card__cta">
+        <button disabled id="button" onclick="nextSlide(1)" class="cta">Continue</button>
     </div>`
 }
 
