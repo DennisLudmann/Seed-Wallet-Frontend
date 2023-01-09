@@ -30,6 +30,7 @@ function generateSeedPhrase() {                           // picks 12 random wor
     console.log(seedPhrase);
 }
 
+
 async function loadWords() {
     let response = await fetch('./bip39.json');
     allWords = await response.json();
@@ -112,13 +113,6 @@ function toggleButton() {
     }
 }
 
-
-function addSucessclass() {
-    let element = document.getElementById("container");
-    element.classList.add("sucess--wrapper");
-
-}
-
 function answerBuilder(firstNumber, secondNumber) {
     document.getElementById('text').innerHTML = questionHTML(firstNumber + 1, secondNumber + 1);
     document.getElementById('seedPhrase').innerHTML = "";
@@ -128,12 +122,17 @@ function answerBuilder(firstNumber, secondNumber) {
 
 
 function finishedBuilder() {
-    addSucessclass();
+    addSuccessclass();
     document.getElementById('nav__header').innerHTML = "Congratulations";
-    document.getElementById('container').innerHTML = sucessHTML();
+    document.getElementById('container').innerHTML = successHTML();
     document.getElementById('card__cta').innerHTML = "";
 }
 
+
+function addSuccessclass() {
+    let element = document.getElementById("container");
+    element.classList.add("success--wrapper");
+}
 
 // Borrowed Fisher-Yates algorithem to shuffle an array
 
@@ -203,9 +202,10 @@ function questionHTML(firstNumber, secondNumber) {
     </div>`
 }
 
-function sucessHTML (){
+
+function successHTML (){
     return `
-    <img class="sucess__image" src="success.jpg" alt="handshake, one human one digital">
+    <img class="success__image" src="success.jpg" alt="handshake, one human one digital">
     <p class="main__text">
     You\'ve successfully protected your wallet. Remember to keep your seed phrase safe, it\'s your
     responsibility&#33; KNAWALLET cannot recover your wallet should you lose it.</p>`
