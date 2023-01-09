@@ -13,6 +13,7 @@ async function init() {
     generateSeedPhrase();
     renderPage();
     renderSeedphrase();
+    generateShuffleArray();
 }
 
 
@@ -29,16 +30,15 @@ function generateSeedPhrase() {                           // picks 12 random wor
     console.log(seedPhrase);
 }
 
+async function loadWords() {
+    let response = await fetch('./bip39.json');
+    allWords = await response.json();
+}
+
 
 function checkSeedphrase(input) {
     let word = seedPhrase.findIndex((seedphrase__word) => seedphrase__word === input);
     console.log(word);
-}
-
-
-async function loadWords() {
-    let response = await fetch('./bip39.json');
-    allWords = await response.json();
 }
 
 
@@ -79,16 +79,10 @@ function nextSlide(number) {
 
 
 function getNewNumbers() {
-    generateNumber(12);
-    let firstNumber = randomNumber;
-    generateNumber(12);
-    let secondNumber = randomNumber;
-    debugger;
-    if (firstNumber === secondNumber || questionWords.includes(firstNumber) || questionWords.includes(secondNumber)) {
-        getNewNumbers();                                               // to prevent to ask for the same word twice
-    }
-    questionWords.push(firstNumber);                                      // fill array with index of questions to prevent the same question to be asked in the future
-    questionWords.push(secondNumber);
+    let firstNumber = shuffleArray.pop();                                 // Removes the last element of an array, and returns that element
+    let secondNumber = shuffleArray.pop();
+    questionWords.push(firstNumber);                                      // fill array with index of questions to prevent the same 
+    questionWords.push(secondNumber);                                     // question to be asked in the future
     return [firstNumber, secondNumber];
 }
 
@@ -123,22 +117,6 @@ function toggleButton() {
 }
 
 
-// Borrowed algorithem to shuffle an array
-
-function fisherYates() {
-    shuffleArray = Array.from(Array(12).keys())
-    let len = shuffleArray.length; 
-    let x; 
-       for (x = len -1; x > 0; x--) { 
-          var y = Math.floor(Math.random() * x) 
-          var temp = shuffleArray[x] 
-          shuffleArray[x] = shuffleArray[y] 
-          shuffleArray[y] = temp 
-        }
-        console.log(shuffleArray);
-}
-
-
 function addSucessclass() {
     let element = document.getElementById("container");
     element.classList.add("sucess--wrapper");
@@ -166,6 +144,21 @@ function finishedBuilder() {
 }
 
 
+// Borrowed Fisher-Yates algorithem to shuffle an array
+
+function generateShuffleArray() {
+    shuffleArray = Array.from(Array(12).keys())         //  generate an array 0-11
+    let len = shuffleArray.length;                      //  shuffleArray.length will be reduced by one each time whenever the for loop 
+    let x;                                              //  is repeated and also the last i is removed from the loop once it is swapped
+       for (x = len -1; x > 0; x--) { 
+          var y = Math.floor(Math.random() * x) 
+          var temp = shuffleArray[x] 
+          shuffleArray[x] = shuffleArray[y] 
+          shuffleArray[y] = temp 
+        }
+}
+
+
 // Here are some builing blocks to generate HTML
 
 
@@ -177,7 +170,8 @@ function landingHTML() {
     </div>
     <div id="container" class="card__content">
     <h1 id="header" class="main__headline">Write Down Your Seed Phrase</h1>
-    <div id="text" class="main__text" > This is your seed phrase.Write it down on a paper and keep it in a safe place.You'll be asked to
+    <div id="text" class="main__text" > This is your seed phrase.Write it down on a 
+    paper and keep it in a safe place.You'll be asked to
         re - enter this phrase(in order) on the next step.</div>
     <div class="wrapper" id="seedPhrase"></div>
     </div>
