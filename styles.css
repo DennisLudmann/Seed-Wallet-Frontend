@@ -107,7 +107,10 @@ body {
 .card__cta {
     display: flex;
     justify-content: center;
-    height: 34%;
+    position: absolute;
+    bottom: var(--big-space);
+    left: 0;
+    right: 0;
 }
 
 .cta {
@@ -124,7 +127,6 @@ body {
     width: 279px;
     height: 48px;
     cursor: pointer;
-    margin-top: auto;
 }
 
 .question__wrapper {
