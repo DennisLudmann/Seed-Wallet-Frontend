@@ -40,9 +40,16 @@ async function loadWords() {
 function checkSeedphrase(input) {
     let word = seedPhrase.findIndex((seedphrase__word) => seedphrase__word === input);
     console.log(word);
-    let index = document.getElementById('firstquestion').innerText;
-    index = index.substring(0, index.length - 1);                                           // remove the last character of the string
-    console.log(+index + word );                                                            // + make the string a number
+    let number = document.getElementById('firstquestion').innerText;
+    number = number.substring(0, number.length - 1);
+    number = (number * 1) -1;                                         // remove the last character of the string
+    console.log(number);
+    let correctAnswer = false;                                                            // + make the string a number
+    if (word == number) {
+        correctAnswer = true;
+        console.log(correctAnswer)
+    }
+    console.log(correctAnswer)
 }
 
 
@@ -53,6 +60,11 @@ function renderPage() {
 
 function generateNumber(number) {                                 // generate random number depending on input fx 0-2047
     randomNumber = Math.floor(Math.random() * number);
+}
+
+
+function questionAsked(){
+    return questionWords.slice(Math.max(questionWords.length - 2, 0));
 }
 
 
@@ -89,17 +101,21 @@ function getNewNumbers() {
 
 
 function answerOptions() {
-    let checkedWords = [];
-    for (let i = 0; i < checkNumber; i++) {
+    let checkedWords = questionAsked();
+    for (let i = 0; i < 4; i++) {
         generateNumber(seedPhraseLenght);
-        if (shuffleArray.includes(randomNumber)) {
-            let word = seedPhrase[randomNumber];
-            checkedWords.push(word);
-            document.getElementById('seedPhrase').innerHTML += answerHTML(word);
+        if (shuffleArray.includes(randomNumber) && !checkedWords.includes(randomNumber)) {
+            checkedWords.push(randomNumber);
         }
         else {
             i--;
         }
+    }
+    debugger;
+    for (let i = 0; i < checkedWords.length; i++) {
+        let number = +checkedWords[i];
+        let word = seedPhrase[number];
+        document.getElementById('seedPhrase').innerHTML += answerHTML(word);
     }
 }
 
