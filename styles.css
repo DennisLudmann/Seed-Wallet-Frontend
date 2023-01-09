@@ -152,9 +152,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: calc(2* var(--big-space))
 }
 
 .success__image {
-    width: 70%;
-    margin-bottom: var(--small-space);
+    width: 74%;
+    margin-bottom: var(--big-space);
 }
