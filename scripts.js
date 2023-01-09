@@ -1,11 +1,11 @@
 let allWords = [];                          // BIP 39 - 2048 words
 let seedPhrase = [];
 let questionWords = [];                     // monitoring previous asked questions
+let shuffleArray = [];                      
 const seedPhraseLenght = 12;
 const checkNumber = 6;
-let randomNumber;
 let turnCounter = 0;
-let shuffleArray = [];
+let randomNumber;
 
 
 async function init() {
@@ -44,9 +44,7 @@ function checkSeedphrase(input) {
 
 
 function renderPage() {
-    let contentEntryBuild = '';
-    contentEntryBuild += landingHTML(contentEntryBuild);
-    document.getElementById('card').innerHTML += contentEntryBuild;
+    document.getElementById('card').innerHTML += landingHTML();
 }
 
 
@@ -73,6 +71,7 @@ function nextSlide(number) {
         const [firstNumber, secondNumber] = getNewNumbers();
         answerBuilder(firstNumber, secondNumber);
         answerOptions();
+        toggleButton();
     }
 }
 
@@ -89,7 +88,7 @@ function getNewNumbers() {
 function answerOptions() {
     let checkedWords = [];
     for (let i = 0; i < checkNumber; i++) {
-        generateNumber(12);
+        generateNumber(seedPhraseLenght);
         if (shuffleArray.includes(randomNumber)) {
             let word = seedPhrase[randomNumber];
             checkedWords.push(word);
@@ -102,14 +101,29 @@ function answerOptions() {
 }
 
 
+function answerGiven(word){   
+        if (document.getElementById('firstanswer').innerHTML === "") {
+            document.getElementById('firstanswer').innerHTML += word;
+        } else {
+            document.getElementById('secondanswer').innerHTML += word;
+            console.log(word)
+        }
+}
+
+
 function toggleButton() {
     if (document.getElementById('button').disabled) {
         document.getElementById('button').disabled = false;
+        var element = document.getElementById('button');
+        element.classList.remove('cta--disabled');
     }
     else {
         document.getElementById('button').disabled = true;
+        var element = document.getElementById('button');
+        element.classList.add('cta--disabled');
     }
 }
+
 
 function answerBuilder(firstNumber, secondNumber) {
     document.getElementById('text').innerHTML = questionHTML(firstNumber + 1, secondNumber + 1);
@@ -135,7 +149,7 @@ function addSuccessclass() {
 // Borrowed Fisher-Yates algorithem to shuffle an array
 
 function generateShuffleArray() {
-    shuffleArray = Array.from(Array(12).keys())         //  generate an array 0-11
+    shuffleArray = Array.from(Array(seedPhraseLenght).keys())         //  generate an array 0-11
     let len = shuffleArray.length;                      //  shuffleArray.length will be reduced by one each time whenever the for loop 
     let x;                                              //  is repeated and also the last i is removed from the loop once it is swapped
        for (x = len -1; x > 0; x--) { 
@@ -181,7 +195,7 @@ function seedphraseHTML(position, i) {
 function answerHTML(word) {
     return `
     <div class="seedword" href="#">
-    <p class="seedphrase__word"> ${word}</p>
+    <p onclick="answerGiven('${word}')" class="seedphrase__word"> ${word}</p>
     </div>`
 }
 
@@ -192,10 +206,12 @@ function questionHTML(firstNumber, secondNumber) {
         <p class="question__info">Select each word in the order it was presented to you</p>
     <div class="question__container" href="#">
         <div class="seedword" href="#">
-            <p class="seedphrase__word"> ${firstNumber}.</p>
+            <p class="seedphrase__word">${firstNumber}.</p>
+            <p id="firstanswer" class="seedphrase--word"></p>
         </div>
         <div class="seedword" href="#">
             <p class="seedphrase__word"> ${secondNumber}.</p>
+            <p id="secondanswer" class="seedphrase--word"></p>
         </div>
     </div>`
 }

@@ -104,6 +104,10 @@ body {
     color: var(--secondary-font-color);
 }
 
+.seedphrase--word{
+    color: var( --primary-font-color);
+}
+
 .card__cta {
     display: flex;
     justify-content: center;
@@ -127,6 +131,12 @@ body {
     width: 279px;
     height: 48px;
     cursor: pointer;
+    border: none;
+}
+
+.cta--disabled {
+    background: var(--primary-background);
+    color: var(--secondary-font-color);
 }
 
 .question__wrapper {
