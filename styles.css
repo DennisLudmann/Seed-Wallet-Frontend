@@ -30,12 +30,12 @@ body {
 .card {
     position: relative;
     margin: auto;
-    height: 681px;
+    height: calc(710px - 2 * var(--big-space));
     max-width: 375px;
-    padding: var(--small-space);
-    display: flex;
+    padding: var(--big-space) var(--medium-space);
+    /* display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; */
     box-shadow: 2px 2px 24px rgb(69 79 89 / 8%);
     border-radius: 12px;
 }
@@ -55,7 +55,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: var(--big-space);
 }
 
 .headline {
@@ -68,6 +67,10 @@ body {
     text-decoration: none;
     margin-right: auto;
     font-weight: 600;
+}
+
+.card__content{
+    margin-top: var(--big-space);
 }
 
 .main__headline {
@@ -102,9 +105,9 @@ body {
 }
 
 .card__cta {
-    padding-bottom: var(--big-space);
     display: flex;
     justify-content: center;
+    height: 34%;
 }
 
 .cta {
@@ -121,6 +124,7 @@ body {
     width: 279px;
     height: 48px;
     cursor: pointer;
+    margin-top: auto;
 }
 
 .question__wrapper {

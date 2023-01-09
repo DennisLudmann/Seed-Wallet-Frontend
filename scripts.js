@@ -68,8 +68,6 @@ function nextSlide(number) {
     turnCounter = turnCounter + number;
     if (turnCounter > 4) {
         finishedBuilder();
-        console.log('I made it');
-        return
     }
     else {
         const [firstNumber, secondNumber] = getNewNumbers();
