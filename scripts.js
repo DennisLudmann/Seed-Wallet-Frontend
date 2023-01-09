@@ -1,10 +1,11 @@
-let allWords = [];                          // BIP 39 - 2048words
+let allWords = [];                          // BIP 39 - 2048 words
 let seedPhrase = [];
 let questionWords = [];                     // monitoring previous asked questions
 const seedPhraseLenght = 12;
 const checkNumber = 6;
 let randomNumber;
 let turnCounter = 0;
+let shuffleArray = [];
 
 
 async function init() {
@@ -62,17 +63,17 @@ function renderSeedphrase() {
 }
 
 
-function nextSlide(number) {                        
+function nextSlide(number) {
     turnCounter = turnCounter + number;
     if (turnCounter > 4) {
         finishedBuilder();
-        console.log('I made it')
+        console.log('I made it');
         return
     }
-        else {
-    const [firstNumber, secondNumber] = getNewNumbers();
-    answerBuilder(firstNumber, secondNumber);
-    answerOptions();
+    else {
+        const [firstNumber, secondNumber] = getNewNumbers();
+        answerBuilder(firstNumber, secondNumber);
+        answerOptions();
     }
 }
 
@@ -82,6 +83,7 @@ function getNewNumbers() {
     let firstNumber = randomNumber;
     generateNumber(12);
     let secondNumber = randomNumber;
+    debugger;
     if (firstNumber === secondNumber || questionWords.includes(firstNumber) || questionWords.includes(secondNumber)) {
         getNewNumbers();                                               // to prevent to ask for the same word twice
     }
@@ -98,7 +100,8 @@ function answerOptions() {
         let word = seedPhrase[randomNumber];
         if (checkedWords.includes(word)) {
             i--;
-        } else {
+        }
+        else {
             checkedWords.push(word);
             document.getElementById('seedPhrase').innerHTML += `
             <div class="seedword" href="#">
@@ -110,22 +113,39 @@ function answerOptions() {
 }
 
 
-function toggleButton(){
+function toggleButton() {
     if (document.getElementById('button').disabled) {
         document.getElementById('button').disabled = false;
-    } else {
-    document.getElementById('button').disabled = true;
+    }
+    else {
+        document.getElementById('button').disabled = true;
     }
 }
 
 
-function addSucessclass(){
-        let element = document.getElementById("container");
-        element.classList.add("sucess--wrapper");
-     
+// Borrowed algorithem to shuffle an array
+
+function fisherYates() {
+    shuffleArray = Array.from(Array(12).keys())
+    let len = shuffleArray.length; 
+    let x; 
+       for (x = len -1; x > 0; x--) { 
+          var y = Math.floor(Math.random() * x) 
+          var temp = shuffleArray[x] 
+          shuffleArray[x] = shuffleArray[y] 
+          shuffleArray[y] = temp 
+        }
+        console.log(shuffleArray);
 }
 
-function answerBuilder(firstNumber, secondNumber){
+
+function addSucessclass() {
+    let element = document.getElementById("container");
+    element.classList.add("sucess--wrapper");
+
+}
+
+function answerBuilder(firstNumber, secondNumber) {
     document.getElementById('text').innerHTML = questionHTML(firstNumber + 1, secondNumber + 1);
     document.getElementById('seedPhrase').innerHTML = "";
     document.getElementById('header').innerHTML = "";
@@ -141,7 +161,7 @@ function finishedBuilder() {
     <p class="main__text">
     You\'ve successfully protected your wallet. Remember to keep your seed phrase safe, it\'s your
     responsibility&#33; KNAWALLET cannot recover your wallet should you lose it.</p>`
-    ;
+        ;
     document.getElementById('card__cta').innerHTML = "";
 }
 
@@ -162,7 +182,7 @@ function landingHTML() {
     <div class="wrapper" id="seedPhrase"></div>
     </div>
     <div id="card__cta" class="card__cta">
-        <button disabled id="button" onclick="nextSlide(1)" class="cta">Continue</button>
+        <button id="button" onclick="nextSlide(1)" class="cta">Continue</button>
     </div>`
 }
 
