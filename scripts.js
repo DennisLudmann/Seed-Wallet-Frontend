@@ -40,6 +40,9 @@ async function loadWords() {
 function checkSeedphrase(input) {
     let word = seedPhrase.findIndex((seedphrase__word) => seedphrase__word === input);
     console.log(word);
+    let index = document.getElementById('firstquestion').innerText;
+    index = index.substring(0, index.length - 1);                                           // remove the last character of the string
+    console.log(+index + word );                                                            // + make the string a number
 }
 
 
@@ -104,6 +107,7 @@ function answerOptions() {
 function answerGiven(word){   
         if (document.getElementById('firstanswer').innerHTML === "") {
             document.getElementById('firstanswer').innerHTML += word;
+            checkSeedphrase(word);        
         } else {
             document.getElementById('secondanswer').innerHTML += word;
             console.log(word)
@@ -195,7 +199,7 @@ function seedphraseHTML(position, i) {
 function answerHTML(word) {
     return `
     <div class="seedword" href="#">
-    <p onclick="answerGiven('${word}')" class="seedphrase__word"> ${word}</p>
+    <p onclick="answerGiven('${word}')" class=""> ${word}</p>
     </div>`
 }
 
@@ -206,12 +210,12 @@ function questionHTML(firstNumber, secondNumber) {
         <p class="question__info">Select each word in the order it was presented to you</p>
     <div class="question__container" href="#">
         <div class="seedword" href="#">
-            <p class="seedphrase__word">${firstNumber}.</p>
-            <p id="firstanswer" class="seedphrase--word"></p>
+            <p id="firstquestion" class="seedphrase__word">${firstNumber}.</p>
+            <p id="firstanswer" class="seedphrase__word seedphrase--word"></p>
         </div>
         <div class="seedword" href="#">
-            <p class="seedphrase__word"> ${secondNumber}.</p>
-            <p id="secondanswer" class="seedphrase--word"></p>
+            <p id="secondquestion" class="seedphrase__word"> ${secondNumber}.</p>
+            <p id="secondanswer" class="seedphrase__word seedphrase--word"></p>
         </div>
     </div>`
 }
