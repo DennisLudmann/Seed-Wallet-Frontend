@@ -49,7 +49,7 @@ function renderPage() {
 }
 
 
-function generateNumber(number) {                                 // generate random number (0-2047 or 0-11 or 0-3)
+function generateNumber(number) {                                 // generate random number depending on input fx 0-2047
     randomNumber = Math.floor(Math.random() * number);
 }
 
@@ -94,11 +94,7 @@ function answerOptions() {
         if (shuffleArray.includes(randomNumber)) {
             let word = seedPhrase[randomNumber];
             checkedWords.push(word);
-            document.getElementById('seedPhrase').innerHTML += `
-            <div class="seedword" href="#">
-            <p class="seedphrase__word"> ${word}</p>
-            </div>`
-                ;
+            document.getElementById('seedPhrase').innerHTML += answerHTML(word);
         }
         else {
             i--;
@@ -134,12 +130,7 @@ function answerBuilder(firstNumber, secondNumber) {
 function finishedBuilder() {
     addSucessclass();
     document.getElementById('nav__header').innerHTML = "Congratulations";
-    document.getElementById('container').innerHTML = `
-    <img class="sucess__image" src="success.jpg" alt="handshake, one human one digital">
-    <p class="main__text">
-    You\'ve successfully protected your wallet. Remember to keep your seed phrase safe, it\'s your
-    responsibility&#33; KNAWALLET cannot recover your wallet should you lose it.</p>`
-        ;
+    document.getElementById('container').innerHTML = sucessHTML();
     document.getElementById('card__cta').innerHTML = "";
 }
 
@@ -189,6 +180,15 @@ function seedphraseHTML(position, i) {
         </div>`
 }
 
+
+function answerHTML(word) {
+    return `
+    <div class="seedword" href="#">
+    <p class="seedphrase__word"> ${word}</p>
+    </div>`
+}
+
+
 function questionHTML(firstNumber, secondNumber) {
     return `
     <div class="question__wrapper" href="#">
@@ -201,4 +201,12 @@ function questionHTML(firstNumber, secondNumber) {
             <p class="seedphrase__word"> ${secondNumber}.</p>
         </div>
     </div>`
+}
+
+function sucessHTML (){
+    return `
+    <img class="sucess__image" src="success.jpg" alt="handshake, one human one digital">
+    <p class="main__text">
+    You\'ve successfully protected your wallet. Remember to keep your seed phrase safe, it\'s your
+    responsibility&#33; KNAWALLET cannot recover your wallet should you lose it.</p>`
 }
