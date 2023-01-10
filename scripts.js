@@ -29,7 +29,7 @@ function generateSeedPhrase() {                           // picks 12 random wor
             seedPhrase.push(word);
         }
     }
-    console.log(seedPhrase);
+    console.table(seedPhrase);
 }
 
 
@@ -173,11 +173,11 @@ function answerBuilder(firstNumber, secondNumber) {
     document.getElementById('seedPhrase').innerHTML = "";
     document.getElementById('header').innerHTML = "";
     document.getElementById('nav__header').innerHTML = "Confirm Seed Phrase";
+    addClassExtraspace();
 }
 
 
 function setProgress(input) {
-    debugger;
     let exists = document.getElementById('progress');
         if (!exists) {
             document.getElementById('container').innerHTML += progressHTML();
@@ -188,7 +188,11 @@ function setProgress(input) {
             let inaktive = document.getElementById('circle__' + (input -1));
             inaktive.classList.remove('circle--aktive');
     }
-    
+}
+
+function addClassExtraspace(){
+    let element = document.getElementById('container');
+    element.classList.add('card--ajustment');
 }
 
 

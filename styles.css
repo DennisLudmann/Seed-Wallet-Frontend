@@ -33,9 +33,9 @@ body {
     height: calc(710px - 2 * var(--big-space));
     max-width: 375px;
     padding: var(--big-space) var(--medium-space);
-    /* display: flex;
+    display: flex;
     flex-direction: column;
-    justify-content: space-between; */
+    justify-content: space-between;
     box-shadow: 2px 2px 24px rgb(69 79 89 / 8%);
     border-radius: 12px;
 }
@@ -52,6 +52,10 @@ body {
 }
 
 .card__header {
+    position: absolute;
+    top: var(--big-space);
+    left: var(--medium-space);
+    right: var(--medium-space);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -69,13 +73,18 @@ body {
     font-weight: 600;
 }
 
-.card__content{
-    margin-top: var(--big-space);
+.card__content {
+    margin-top: calc(2 * var(--big-space));
+}
+
+.card--ajustment {
+    margin-top: calc(3 * var(--big-space));
 }
 
 .main__headline {
     font-weight: 600;
     font-size: var(--big-font);
+    /* margin-top: var(--medium-space); */
     margin-bottom: var(--small-space);
     line-height: 28px;
 }
@@ -97,7 +106,7 @@ body {
 }
 
 .progress__wrapper{
-    margin-top: var(--medium-space);
+    /* margin-top: var(--medium-space); */
     display: flex;
     justify-content: center;
 }
@@ -170,7 +179,7 @@ body {
 
 .question__wrapper {
     padding: 16px 16px 24px 16px;
-    margin-top: var(--medium-space);
+    /* margin-top: var(--medium-space); */
     background: #FFFFFF;
     box-shadow: 2px 2px 24px rgba(69, 79, 89, 0.08);
     border-radius: 12px;
