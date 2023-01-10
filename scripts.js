@@ -42,28 +42,14 @@ async function loadWords() {
 function checkSeedphrase(input, answerId) {
     let word = findIndex(input);
     let number = findAnswer(answerId);
-    if (answerId == 1) {
-        if(word == number) {
-            firstAnswer = true;
-            console.log(firstAnswer)
-        }
-        else{
-            console.log(firstAnswer)
-        }
-    }
-    if (answerId == 2) {
-        if(word == number) {
-            secondAnswer = true;
-            console.log(secondAnswer)
-        }
-        else{
-            console.log(secondAnswer)
-        }
-    }  
+    if(answerId == 1 && word == number)
+    firstAnswer = true;
+    if(answerId == 2 && word == number)
+    secondAnswer = true;
 }
 
 
-function returnDefault() {
+function clearState() {
     firstAnswer = false;
     secondAnswer = false;
     for (let i = 0; i < currentAnswers.length; i++) {
@@ -117,23 +103,21 @@ function renderSeedphrase() {
 }
 
 
-function nextSlide(number) {
-    if (firstAnswer == true && secondAnswer == true || turnCounter == 0) {
-        firstAnswer = false;
-        secondAnswer = false;
+function nextSlide(number) {                                                        // checkes if answered correctly and if next slide should be displayed or same questions asked again
+    if (firstAnswer && secondAnswer || turnCounter == 0) {
         turnCounter = turnCounter + number;
-    if (turnCounter > 4) {
+    if (turnCounter > 4) {                                                          // checkes if all 4 slides have been answered sucessfully - sucess if true
         finishedBuilder();
         return
     }
-    else {
+        firstAnswer = false;
+        secondAnswer = false;
         const [firstNumber, secondNumber] = getNewNumbers();
         answerBuilder(firstNumber, secondNumber);
         answerOptions();
         buttonDisabled();
     }
-    }
-    returnDefault();
+    clearState();
 }
 
 
@@ -239,8 +223,9 @@ function generateShuffleArray() {
 
 // Borrowed Fisher-Yates algorithem to shuffle an array
 
+
 function randomiseArray(Array) {
-    let len = Array.length;                      //  shuffleArray.length will be reduced by one each time whenever the for loop 
+    let len = Array.length;                             //  shuffleArray.length will be reduced by one each time whenever the for loop 
     let x;                                              //  is repeated and also the last i is removed from the loop once it is swapped
        for (x = len -1; x > 0; x--) { 
           var y = Math.floor(Math.random() * x) 
