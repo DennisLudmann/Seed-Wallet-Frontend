@@ -37,14 +37,19 @@ async function loadWords() {
 }
 
 
-function checkSeedphrase(input) {
-    let word = seedPhrase.findIndex((seedphrase__word) => seedphrase__word === input);
+function checkSeedphrase(input, answerId) {
+    let word = findIndex(input);
+    if (answerId == 1) {
+        
+    }
+
+    console.log("answer Nr:" + answerId);
     console.log(word);
-    let number = document.getElementById('firstquestion').innerText;
-    number = number.substring(0, number.length - 1);
-    number = (number * 1) -1;                                         // remove the last character of the string
+    let number = document.getElementById('firstquestion').innerText;                   
+    number = number.substring(0, number.length - 1);                                  // remove the last character of the string
+    number = (number * 1) -1;                                                         // transform string to number and number to index                     
     console.log(number);
-    let correctAnswer = false;                                                            // + make the string a number
+    let correctAnswer = false;                                                          
     if (word == number) {
         correctAnswer = true;
         console.log(correctAnswer)
@@ -65,6 +70,12 @@ function generateNumber(number) {                                 // generate ra
 
 function questionAsked(){
     return questionWords.slice(Math.max(questionWords.length - 2, 0));
+}
+
+
+function findIndex(input){
+    let word = seedPhrase.findIndex((seedphrase__word) => seedphrase__word === input);
+    return word;
 }
 
 
@@ -111,7 +122,7 @@ function answerOptions() {
             i--;
         }
     }
-    debugger;
+    randomiseArray(checkedWords);
     for (let i = 0; i < checkedWords.length; i++) {
         let number = +checkedWords[i];
         let word = seedPhrase[number];
@@ -120,28 +131,16 @@ function answerOptions() {
 }
 
 
-function answerGiven(word){   
+function answerGiven(word){
         if (document.getElementById('firstanswer').innerHTML === "") {
             document.getElementById('firstanswer').innerHTML += word;
-            checkSeedphrase(word);        
-        } else {
+            checkSeedphrase(word, '1');
+            addKlickedclass(word);        
+        } 
+        else if (document.getElementById('secondanswer').innerHTML === "") {
             document.getElementById('secondanswer').innerHTML += word;
-            console.log(word)
+            addKlickedclass(word);
         }
-}
-
-
-function toggleButton() {
-    if (document.getElementById('button').disabled) {
-        document.getElementById('button').disabled = false;
-        var element = document.getElementById('button');
-        element.classList.remove('cta--disabled');
-    }
-    else {
-        document.getElementById('button').disabled = true;
-        var element = document.getElementById('button');
-        element.classList.add('cta--disabled');
-    }
 }
 
 
@@ -161,22 +160,46 @@ function finishedBuilder() {
 }
 
 
-function addSuccessclass() {
-    let element = document.getElementById("container");
-    element.classList.add("success--wrapper");
+function toggleButton() {
+    if (document.getElementById('button').disabled) {
+        document.getElementById('button').disabled = false;
+        var element = document.getElementById('button');
+        element.classList.remove('cta--disabled');
+    }
+    else {
+        document.getElementById('button').disabled = true;
+        var element = document.getElementById('button');
+        element.classList.add('cta--disabled');
+    }
 }
 
-// Borrowed Fisher-Yates algorithem to shuffle an array
+function addKlickedclass(input) {
+    let element = document.getElementById(input);
+    element.classList.add('main__text');
+}
+
+function addSuccessclass() {
+    let element = document.getElementById('container');
+    element.classList.add('success--wrapper');
+}
+
 
 function generateShuffleArray() {
     shuffleArray = Array.from(Array(seedPhraseLenght).keys())         //  generate an array 0-11
-    let len = shuffleArray.length;                      //  shuffleArray.length will be reduced by one each time whenever the for loop 
+    randomiseArray(shuffleArray);
+}
+
+
+// Borrowed Fisher-Yates algorithem to shuffle an array
+
+function randomiseArray(Array) {
+    let len = Array.length;                      //  shuffleArray.length will be reduced by one each time whenever the for loop 
     let x;                                              //  is repeated and also the last i is removed from the loop once it is swapped
        for (x = len -1; x > 0; x--) { 
           var y = Math.floor(Math.random() * x) 
-          var temp = shuffleArray[x] 
-          shuffleArray[x] = shuffleArray[y] 
-          shuffleArray[y] = temp 
+          var temp = Array[x] 
+          Array[x] = Array[y] 
+          Array[y] = temp 
         }
 }
 
@@ -215,7 +238,7 @@ function seedphraseHTML(position, i) {
 function answerHTML(word) {
     return `
     <div class="seedword" href="#">
-    <p onclick="answerGiven('${word}')" class=""> ${word}</p>
+    <p id="${word}" onclick="answerGiven('${word}')" class=""> ${word}</p>
     </div>`
 }
 
