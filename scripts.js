@@ -115,6 +115,7 @@ function nextSlide(number) {                                                    
         const [firstNumber, secondNumber] = getNewNumbers();
         answerBuilder(firstNumber, secondNumber);
         answerOptions();
+        setProgress(turnCounter);
         buttonDisabled();
     }
     clearState();
@@ -172,6 +173,22 @@ function answerBuilder(firstNumber, secondNumber) {
     document.getElementById('seedPhrase').innerHTML = "";
     document.getElementById('header').innerHTML = "";
     document.getElementById('nav__header').innerHTML = "Confirm Seed Phrase";
+}
+
+
+function setProgress(input) {
+    debugger;
+    let exists = document.getElementById('progress');
+        if (!exists) {
+            document.getElementById('container').innerHTML += progressHTML();
+        }
+        let active = document.getElementById('circle__' + input);
+        active.classList.add('circle--aktive');
+        if (input > 1) {                                                                            // to remove class when progress is one step fearther
+            let inaktive = document.getElementById('circle__' + (input -1));
+            inaktive.classList.remove('circle--aktive');
+    }
+    
 }
 
 
@@ -251,7 +268,7 @@ function landingHTML() {
             This is your seed phrase.Write it down on a 
             paper and keep it in a safe place.You'll be asked to re - enter this phrase(in order) on the next step.
         </div>
-        <div class="wrapper" id="seedPhrase"></div>
+        <div class="seedphrase__wrapper" id="seedPhrase"></div>
     </div>
     <div id="card__cta" class="card__cta">
         <button id="button" onclick="nextSlide(1)" class="cta">Continue</button>
@@ -288,6 +305,19 @@ function questionHTML(firstNumber, secondNumber) {
         <div class="seedword" href="#">
             <p id="question__2" class="seedphrase__word"> ${secondNumber}.</p>
             <p id="answer__2" class="seedphrase__word seedphrase--word"></p>
+        </div>
+    </div>`
+}
+
+
+function progressHTML() {
+    return`
+    <div class="progress__wrapper">
+        <div id="progress" class="progress">
+            <div id="circle__1" class="circle__inakive"></div>
+            <div id="circle__2" class="circle__inakive"></div>
+            <div id="circle__3" class="circle__inakive"></div>
+            <div id="circle__4" class="circle__inakive"></div>
         </div>
     </div>`
 }
