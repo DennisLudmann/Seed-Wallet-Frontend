@@ -257,15 +257,16 @@ function randomiseArray(Array) {
 function landingHTML() {
     return `
     <div class="card__header">
-    <a class="return" href=""> < </a>
-    <h2 id="nav__header" class="headline">Backup Seed Phrase</h2>
+        <a class="return" href=""> < </a>
+        <h2 id="nav__header" class="headline">Backup Seed Phrase</h2>
     </div>
     <div id="container" class="card__content">
-    <h1 id="header" class="main__headline">Write Down Your Seed Phrase</h1>
-    <div id="text" class="main__text" > This is your seed phrase.Write it down on a 
-    paper and keep it in a safe place.You'll be asked to
-        re - enter this phrase(in order) on the next step.</div>
-    <div class="wrapper" id="seedPhrase"></div>
+        <h1 id="header" class="main__headline">Write Down Your Seed Phrase</h1>
+        <div id="text" class="main__text"> 
+            This is your seed phrase.Write it down on a 
+            paper and keep it in a safe place.You'll be asked to re - enter this phrase(in order) on the next step.
+        </div>
+        <div class="wrapper" id="seedPhrase"></div>
     </div>
     <div id="card__cta" class="card__cta">
         <button id="button" onclick="nextSlide(1)" class="cta">Continue</button>
@@ -276,17 +277,17 @@ function landingHTML() {
 function seedphraseHTML(position, i) {
     return `
         <div id=${position} class="seedword" href="#">
-        <p class="seedphrase__number">${position}.</p>
-        <p class="seedphrase__word"> ${seedPhrase[i]}</p>
+            <p class="seedphrase__number">${position}.</p>
+            <p class="seedphrase__word"> ${seedPhrase[i]}</p>
         </div>`
 }
 
 
 function answerHTML(word) {
     return `
-    <div class="seedword" href="#">
-    <p id="${word}" onclick="answerGiven('${word}')" class=""> ${word}</p>
-    </div>`
+        <div onclick="answerGiven('${word}')" class="seedword" href="#">
+            <p id="${word}"  class=""> ${word}</p>
+        </div>`
 }
 
 
