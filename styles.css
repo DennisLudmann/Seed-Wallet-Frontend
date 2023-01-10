@@ -93,6 +93,7 @@ body {
     padding: 7px 16px;
     background: var(--secondary-background);
     border-radius: 100px;
+    cursor: pointer;
 }
 
 .seedphrase__word {

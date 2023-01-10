@@ -1,11 +1,13 @@
 let allWords = [];                          // BIP 39 - 2048 words
 let seedPhrase = [];
 let questionWords = [];                     // monitoring previous asked questions
+let currentAnswers = [];
 let shuffleArray = [];                      
 const seedPhraseLenght = 12;
-const checkNumber = 6;
 let turnCounter = 0;
 let randomNumber;
+let firstAnswer = false;
+let secondAnswer = false;
 
 
 async function init() {
@@ -39,22 +41,40 @@ async function loadWords() {
 
 function checkSeedphrase(input, answerId) {
     let word = findIndex(input);
+    let number = findAnswer(answerId);
     if (answerId == 1) {
-        
+        if(word == number) {
+            firstAnswer = true;
+            console.log(firstAnswer)
+        }
+        else{
+            console.log(firstAnswer)
+        }
     }
+    if (answerId == 2) {
+        if(word == number) {
+            secondAnswer = true;
+            console.log(secondAnswer)
+        }
+        else{
+            console.log(secondAnswer)
+        }
+    }  
+}
 
-    console.log("answer Nr:" + answerId);
-    console.log(word);
-    let number = document.getElementById('firstquestion').innerText;                   
-    number = number.substring(0, number.length - 1);                                  // remove the last character of the string
-    number = (number * 1) -1;                                                         // transform string to number and number to index                     
-    console.log(number);
-    let correctAnswer = false;                                                          
-    if (word == number) {
-        correctAnswer = true;
-        console.log(correctAnswer)
+
+function returnDefault() {
+    firstAnswer = false;
+    secondAnswer = false;
+    for (let i = 0; i < currentAnswers.length; i++) {
+        const word = currentAnswers[i];
+        let exists = document.getElementById(word);
+        if (exists) {
+            removeKlickedclass(word);
+        }
     }
-    console.log(correctAnswer)
+    document.getElementById('answer__1').innerHTML = "";
+    document.getElementById('answer__2').innerHTML = "";
 }
 
 
@@ -79,6 +99,15 @@ function findIndex(input){
 }
 
 
+function findAnswer(input){
+    let id = 'question__' + input;
+    let number = document.getElementById(id).innerText;                   
+    number = number.substring(0, number.length - 1);                                  // remove the last character of the string
+    number = (number * 1) -1;
+    return number;
+}
+
+
 function renderSeedphrase() {
     for (let i = 0; i < seedPhraseLenght; i++) {
         let position = i + 1;
@@ -89,16 +118,22 @@ function renderSeedphrase() {
 
 
 function nextSlide(number) {
-    turnCounter = turnCounter + number;
+    if (firstAnswer == true && secondAnswer == true || turnCounter == 0) {
+        firstAnswer = false;
+        secondAnswer = false;
+        turnCounter = turnCounter + number;
     if (turnCounter > 4) {
         finishedBuilder();
+        return
     }
     else {
         const [firstNumber, secondNumber] = getNewNumbers();
         answerBuilder(firstNumber, secondNumber);
         answerOptions();
-        toggleButton();
+        buttonDisabled();
     }
+    }
+    returnDefault();
 }
 
 
@@ -112,8 +147,8 @@ function getNewNumbers() {
 
 
 function answerOptions() {
-    let checkedWords = questionAsked();
-    for (let i = 0; i < 4; i++) {
+    let checkedWords = questionAsked();                                    // get the id of the two picked questions
+    for (let i = 0; i < 4; i++) {                                          // add 4 more to the array
         generateNumber(seedPhraseLenght);
         if (shuffleArray.includes(randomNumber) && !checkedWords.includes(randomNumber)) {
             checkedWords.push(randomNumber);
@@ -122,7 +157,7 @@ function answerOptions() {
             i--;
         }
     }
-    randomiseArray(checkedWords);
+    randomiseArray(checkedWords);                                       // shuffle the 6 words, to prevent them from beeing displayed on the same spot
     for (let i = 0; i < checkedWords.length; i++) {
         let number = +checkedWords[i];
         let word = seedPhrase[number];
@@ -132,14 +167,18 @@ function answerOptions() {
 
 
 function answerGiven(word){
-        if (document.getElementById('firstanswer').innerHTML === "") {
-            document.getElementById('firstanswer').innerHTML += word;
+        if (document.getElementById('answer__1').innerHTML === "") {
+            document.getElementById('answer__1').innerHTML += word;
+            currentAnswers.push(word);
             checkSeedphrase(word, '1');
             addKlickedclass(word);        
         } 
-        else if (document.getElementById('secondanswer').innerHTML === "") {
-            document.getElementById('secondanswer').innerHTML += word;
+        else if (document.getElementById('answer__2').innerHTML === "") {
+            document.getElementById('answer__2').innerHTML += word;
+            currentAnswers.push(word);
+            checkSeedphrase(word, '2');
             addKlickedclass(word);
+            buttonActive();
         }
 }
 
@@ -160,23 +199,31 @@ function finishedBuilder() {
 }
 
 
-function toggleButton() {
-    if (document.getElementById('button').disabled) {
+function buttonActive() {
         document.getElementById('button').disabled = false;
         var element = document.getElementById('button');
         element.classList.remove('cta--disabled');
-    }
-    else {
+}
+
+
+function buttonDisabled() {
         document.getElementById('button').disabled = true;
         var element = document.getElementById('button');
         element.classList.add('cta--disabled');
-    }
 }
+
 
 function addKlickedclass(input) {
     let element = document.getElementById(input);
     element.classList.add('main__text');
 }
+
+
+function removeKlickedclass(input) {
+    let element = document.getElementById(input);
+    element.classList.remove('main__text');
+}
+
 
 function addSuccessclass() {
     let element = document.getElementById('container');
@@ -249,12 +296,12 @@ function questionHTML(firstNumber, secondNumber) {
         <p class="question__info">Select each word in the order it was presented to you</p>
     <div class="question__container" href="#">
         <div class="seedword" href="#">
-            <p id="firstquestion" class="seedphrase__word">${firstNumber}.</p>
-            <p id="firstanswer" class="seedphrase__word seedphrase--word"></p>
+            <p id="question__1" class="seedphrase__word">${firstNumber}.</p>
+            <p id="answer__1" class="seedphrase__word seedphrase--word"></p>
         </div>
         <div class="seedword" href="#">
-            <p id="secondquestion" class="seedphrase__word"> ${secondNumber}.</p>
-            <p id="secondanswer" class="seedphrase__word seedphrase--word"></p>
+            <p id="question__2" class="seedphrase__word"> ${secondNumber}.</p>
+            <p id="answer__2" class="seedphrase__word seedphrase--word"></p>
         </div>
     </div>`
 }
